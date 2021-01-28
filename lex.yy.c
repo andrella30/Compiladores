@@ -508,6 +508,8 @@ char *yytext;
 #include "util.h"
 #include "tokens.h"
 #include "errormsg.h"
+#include <math.h>
+
 
 int charPos=1;
 
@@ -521,8 +523,8 @@ int yywrap(void) {
   charPos+=yyleng;
  }
 
-#line 525 "lex.yy.c"
-#line 526 "lex.yy.c"
+#line 527 "lex.yy.c"
+#line 528 "lex.yy.c"
 
 #define INITIAL 0
 
@@ -739,9 +741,9 @@ YY_DECL
 		}
 
 	{
-#line 21 "tiger.lex"
+#line 23 "tiger.lex"
 
-#line 745 "lex.yy.c"
+#line 747 "lex.yy.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -800,236 +802,236 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 22 "tiger.lex"
+#line 24 "tiger.lex"
 {adjust(); return COMMA;}
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 23 "tiger.lex"
+#line 25 "tiger.lex"
 {adjust(); return COLON;}
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 24 "tiger.lex"
+#line 26 "tiger.lex"
 {adjust(); return SEMICOLON;}
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 25 "tiger.lex"
+#line 27 "tiger.lex"
 {adjust(); return LPAREN;}
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 26 "tiger.lex"
+#line 28 "tiger.lex"
 {adjust(); return RPAREN;}
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 27 "tiger.lex"
+#line 29 "tiger.lex"
 {adjust(); return LBRACK;}
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 28 "tiger.lex"
+#line 30 "tiger.lex"
 {adjust(); return RBRACK;}
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 29 "tiger.lex"
+#line 31 "tiger.lex"
 {adjust(); return LBRACE;}
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 30 "tiger.lex"
+#line 32 "tiger.lex"
 {adjust(); return RBRACE;}
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 31 "tiger.lex"
+#line 33 "tiger.lex"
 {adjust(); return DOT;}
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 32 "tiger.lex"
+#line 34 "tiger.lex"
 {adjust(); return PLUS;}
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 33 "tiger.lex"
+#line 35 "tiger.lex"
 {adjust(); return MINUS;}
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 34 "tiger.lex"
+#line 36 "tiger.lex"
 {adjust(); return TIMES;;}
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 35 "tiger.lex"
+#line 37 "tiger.lex"
 {adjust(); return DIVIDE;}
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 36 "tiger.lex"
+#line 38 "tiger.lex"
 {adjust(); return EQ;}
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 37 "tiger.lex"
+#line 39 "tiger.lex"
 {adjust(); return NEQ;}
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 38 "tiger.lex"
+#line 40 "tiger.lex"
 {adjust(); return LT;}
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 39 "tiger.lex"
+#line 41 "tiger.lex"
 {adjust(); return LE;}
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 40 "tiger.lex"
+#line 42 "tiger.lex"
 {adjust(); return GT;}
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 41 "tiger.lex"
+#line 43 "tiger.lex"
 {adjust(); return GE;}
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 42 "tiger.lex"
+#line 44 "tiger.lex"
 {adjust(); return AND;}
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 43 "tiger.lex"
+#line 45 "tiger.lex"
 {adjust(); return OR;}
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 44 "tiger.lex"
+#line 46 "tiger.lex"
 {adjust(); return ASSIGN;}
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 46 "tiger.lex"
+#line 48 "tiger.lex"
 {adjust(); return ARRAY;}
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 47 "tiger.lex"
+#line 49 "tiger.lex"
 {adjust(); return IF;}
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 48 "tiger.lex"
+#line 50 "tiger.lex"
 {adjust(); return THEN;}
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 49 "tiger.lex"
+#line 51 "tiger.lex"
 {adjust(); return TYPE;}
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 50 "tiger.lex"
+#line 52 "tiger.lex"
 {adjust(); return WHILE;}
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 51 "tiger.lex"
+#line 53 "tiger.lex"
 {adjust(); return FOR;}
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 52 "tiger.lex"
+#line 54 "tiger.lex"
 {adjust(); return TO;}
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 53 "tiger.lex"
+#line 55 "tiger.lex"
 {adjust(); return DO;}
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 54 "tiger.lex"
+#line 56 "tiger.lex"
 {adjust(); return LET;}
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
-#line 55 "tiger.lex"
+#line 57 "tiger.lex"
 {adjust(); return IN;}
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
-#line 56 "tiger.lex"
+#line 58 "tiger.lex"
 {adjust(); return END;}
 	YY_BREAK
 case 35:
 YY_RULE_SETUP
-#line 57 "tiger.lex"
+#line 59 "tiger.lex"
 {adjust(); return OF;}
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
-#line 58 "tiger.lex"
+#line 60 "tiger.lex"
 {adjust(); return BREAK;}
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
-#line 59 "tiger.lex"
+#line 61 "tiger.lex"
 {adjust(); return NIL;}
 	YY_BREAK
 case 38:
 YY_RULE_SETUP
-#line 60 "tiger.lex"
+#line 62 "tiger.lex"
 {adjust(); return FUNCTION;}
 	YY_BREAK
 case 39:
 YY_RULE_SETUP
-#line 61 "tiger.lex"
+#line 63 "tiger.lex"
 {adjust(); return VAR;}
 	YY_BREAK
 case 40:
 YY_RULE_SETUP
-#line 62 "tiger.lex"
+#line 64 "tiger.lex"
 {adjust(); return ELSE;}
 	YY_BREAK
 case 41:
 /* rule 41 can match eol */
 YY_RULE_SETUP
-#line 64 "tiger.lex"
+#line 66 "tiger.lex"
 {adjust(); }
 	YY_BREAK
 case 42:
 YY_RULE_SETUP
-#line 65 "tiger.lex"
+#line 67 "tiger.lex"
 {adjust(); yylval.sval = String(yytext); return STRING;}
 	YY_BREAK
 case 43:
 YY_RULE_SETUP
-#line 66 "tiger.lex"
+#line 68 "tiger.lex"
 {adjust(); yylval.sval = yytext; return ID;}
 	YY_BREAK
 case 44:
 YY_RULE_SETUP
-#line 67 "tiger.lex"
+#line 69 "tiger.lex"
 {adjust(); yylval.ival = atoi(yytext); return INT;}
 	YY_BREAK
 case 45:
 YY_RULE_SETUP
-#line 69 "tiger.lex"
+#line 70 "tiger.lex"
 {adjust(); yylval.dval = atof(yytext); return DOUBLE;}
 	YY_BREAK
 case 46:
 YY_RULE_SETUP
-#line 70 "tiger.lex"
+#line 71 "tiger.lex"
 ECHO;
 	YY_BREAK
-#line 1033 "lex.yy.c"
+#line 1035 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -2034,6 +2036,6 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 70 "tiger.lex"
+#line 71 "tiger.lex"
 
 

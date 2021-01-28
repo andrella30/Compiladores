@@ -3,6 +3,8 @@
 #include "util.h"
 #include "tokens.h"
 #include "errormsg.h"
+#include <math.h>
+
 
 int charPos=1;
 
@@ -65,6 +67,5 @@ int yywrap(void) {
 <INITIAL>\"[a-zA-Z0-9]*\"       {adjust(); yylval.sval = String(yytext); return STRING;}
 <INITIAL>[a-zA-Z][a-zA-Z0-9_]*  {adjust(); yylval.sval = yytext; return ID;}
 <INITIAL>[0-9]+                 {adjust(); yylval.ival = atoi(yytext); return INT;}
-
 <INITIAL>([0-9]+"."[0-9]*)|([0-9]*"."[0-9]+)  {adjust(); yylval.dval = atof(yytext); return DOUBLE;}
 %%

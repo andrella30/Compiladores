@@ -6,8 +6,9 @@ typedef union  {
 	string sval;
 	double dval;
 	} YYSTYPE;
+
 extern YYSTYPE yylval;
- 
+
 # define ID 257
 # define STRING 258
 # define INT 259
@@ -50,5 +51,6 @@ extern YYSTYPE yylval;
 # define NIL 296
 # define FUNCTION 297
 # define VAR 298
-# define TYPE 299
-#	define DOUBLE 300
+# define TYPE 299 
+# define DOUBLE 300
+

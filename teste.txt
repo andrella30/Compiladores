@@ -36,8 +36,11 @@ of
 break
 nil
 function
-var
 type
+var
 "string"
 type_identifier
 5
+7.665
+4.5
+3.4523
