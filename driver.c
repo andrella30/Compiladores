@@ -16,13 +16,13 @@ string toknames[] = {
 "MINUS", "TIMES", "DIVIDE", "EQ", "NEQ", "LT", "LE", "GT", "GE",
 "AND", "OR", "ASSIGN", "ARRAY", "IF", "THEN", "ELSE", "WHILE", "FOR",
 "TO", "DO", "LET", "IN", "END", "OF", "BREAK", "NIL", "FUNCTION",
-"VAR", "TYPE", "DOUBLE" 
+"VAR", "TYPE" 
 };
 
 
 
 string tokname(int tok) {
-  return tok<257 || tok>300 ? "BAD_TOKEN" : toknames[tok-257];
+  return tok<257 || tok>299 ? "BAD_TOKEN" : toknames[tok-257];
 }
 
 int main(int argc, char **argv) {
@@ -44,9 +44,6 @@ int main(int argc, char **argv) {
       break;
     case INT:
       printf("%10s %4d %d\n",tokname(tok),EM_tokPos,yylval.ival);
-      break;
-    case DOUBLE:
-      printf("%10s %4d %lf\n",tokname(tok),EM_tokPos,yylval.dval);
       break;
    default:
      printf("%10s %4d\n",tokname(tok),EM_tokPos);
