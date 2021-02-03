@@ -5,27 +5,51 @@
 #include "errormsg.h"
 #include <math.h>
 
-int commentDepth = 0;
-char stringText[16384] = "";
+#define MAX_STR_CONST 16384
+
+int line_num = 0;
 int charPos=1;
 
-int yywrap(void) {
- charPos=1;
- return 1;
-}
+char string_buf[MAX_STR_CONST];
+char *string_buf_ptr;
 
- void adjust(void) {
-  EM_tokPos=charPos;
-  charPos+=yyleng;
- }
+void adjust(void);
 
 %}
 
-%x COMMENT STRINGS 
+%x COMMENT STR
 %%
 
-<INITIAL>"/*"   {adjust(); BEGIN(COMMENT); commentDepth++;}
-<INITIAL>"\""   {adjust(); BEGIN(STRINGS); stringText[0]= '\0'; strcat(stringText,"\"");}
+<INITIAL>[ \t\r]      {adjust(); continue;}
+<INITIAL>\n           {adjust(); EM_newline(); continue;}
+
+  /*comments*/ 
+<INITIAL>"/*"        {adjust(); BEGIN(COMMENT); line_num++;}
+<COMMENT>"/*"        {adjust(); line_num++;}
+<COMMENT>"*/"        {adjust(); if (--line_num == 0) {BEGIN(INITIAL);}}
+<COMMENT>"\n"        {adjust(); EM_newline();}
+<COMMENT><<EOF>>     {adjust(); EM_error(EM_tokPos, "UNFINISHED COMMENT"); yyterminate();}
+<COMMENT>.           {adjust();}
+
+<INITIAL>array    {adjust(); return ARRAY;}
+<INITIAL>if       {adjust(); return IF;}
+<INITIAL>then     {adjust(); return THEN;}
+<INITIAL>type     {adjust(); return TYPE;}
+<INITIAL>while    {adjust(); return WHILE;}
+<INITIAL>for      {adjust(); return FOR;}
+<INITIAL>to       {adjust(); return TO;}
+<INITIAL>do       {adjust(); return DO;}
+<INITIAL>let      {adjust(); return LET;}
+<INITIAL>in       {adjust(); return IN;}
+<INITIAL>end      {adjust(); return END;}
+<INITIAL>of       {adjust(); return OF;}
+<INITIAL>break    {adjust(); return BREAK;}
+<INITIAL>nil      {adjust(); return NIL;}
+<INITIAL>function {adjust(); return FUNCTION;}
+<INITIAL>var      {adjust(); return VAR;}
+<INITIAL>else     {adjust(); return ELSE;}
+
+<INITIAL>[a-zA-Z][a-zA-Z0-9_]*  {adjust(); yylval.sval = yytext; return ID;}
 
 <INITIAL>","    {adjust(); return COMMA;}
 <INITIAL>":"    {adjust(); return COLON;}
@@ -51,43 +75,32 @@ int yywrap(void) {
 <INITIAL>"|"    {adjust(); return OR;}
 <INITIAL>":="   {adjust(); return ASSIGN;}
 
-<INITIAL>array    {adjust(); return ARRAY;}
-<INITIAL>if       {adjust(); return IF;}
-<INITIAL>then     {adjust(); return THEN;}
-<INITIAL>type     {adjust(); return TYPE;}
-<INITIAL>while    {adjust(); return WHILE;}
-<INITIAL>for      {adjust(); return FOR;}
-<INITIAL>to       {adjust(); return TO;}
-<INITIAL>do       {adjust(); return DO;}
-<INITIAL>let      {adjust(); return LET;}
-<INITIAL>in       {adjust(); return IN;}
-<INITIAL>end      {adjust(); return END;}
-<INITIAL>of       {adjust(); return OF;}
-<INITIAL>break    {adjust(); return BREAK;}
-<INITIAL>nil      {adjust(); return NIL;}
-<INITIAL>function {adjust(); return FUNCTION;}
-<INITIAL>var      {adjust(); return VAR;}
-<INITIAL>else     {adjust(); return ELSE;}
+<INITIAL>[0-9]+       {adjust(); yylval.ival = atoi(yytext); return INT;}
 
-<STRINGS>\"         {adjust();  BEGIN(INITIAL); strcat(stringText,'\"'); yylval.sval=String(stringText); return STRING;}
-<STRINGS><<EOF>>    {adjust(); EM_error(EM_tokPos, "UNFINISHED STRING");}
-<STRINGS>\n         {adjust();  EM_newline(); BEGIN(INITIAL);  EM_error(EM_tokPos,"UNCLOSED STRING");}
-<STRINGS>\\n        {adjust();  strcat(stringText,'\n'); }
-<STRINGS>\\t        {adjust();  strcat(stringText,'\t');}
-<STRINGS>\\\\       {adjust();  strcat(stringText,'\\');}
-<STRINGS>\\\"       {adjust();  strcat(stringText,'\"');}
-<STRINGS>\\[\n\t]+\\  { }
-<STRINGS>\\.          {adjust();  EM_error(EM_tokPos,"INVALID ESCAPE CODE");}
-<STRINGS>.            {adjust();  strcat(string_text,yytext);}
+  /*strings */
+<INITIAL>\"           {adjust(); BEGIN(STR); string_buf_ptr = string_buf;}
+<STR>\"               {adjust(); yylval.sval = String(string_buf); BEGIN 0; return STRING;}
+<STR>\n               {adjust(); EM_error(EM_tokPos,"unclose string"); yyterminate();}
+<STR><<EOF>>          {adjust(); EM_error(EM_tokPos,"unclose string"); yyterminate();}
+<STR>\\n              {*string_buf_ptr++ = '\n';}
+<STR>\\t              {*string_buf_ptr++ = '\t';}
+<STR>\\\              {*string_buf_ptr++ = '"'; }
+<STR>\\\\             {*string_buf_ptr++ = '\\';}
+<STR>\\[0-9]{3}       {int i = atoi(&yytext[1]); *string_buf_ptr++ = (char)i;}
+<STR>\\[\n\t ]+\\     {}
+<STR>\\(.|\n)	        {adjust(); EM_error(EM_tokPos, "illegal token");}
 
-<COMMENT>"/*"        {adjust(); commentDepth++;}
-<COMMENT>"*/"        {adjust(); if (--commentDepth == 0) {BEGIN(INITIAL);}}
-<COMMENT>"\n"        {adjust(); EM_newline();}
-<COMMENT><<EOF>>     {adjust(); EM_error(EM_tokPos, "UNFINISHED COMMENT");}
-<COMMENT>.           {adjust();}
-
-<INITIAL>" "|"\n"|"\t"          {adjust(); }
-<INITIAL>[a-zA-Z][a-zA-Z0-9_]*  {adjust(); yylval.sval = yytext; return ID;}
-<INITIAL>[0-9]+                 {adjust(); yylval.ival = atoi(yytext); return INT;}
-
+<INITIAL>.	          {adjust(); EM_error(EM_tokPos,"illegal token");}
 %%
+
+int yywrap(void) {
+ charPos=1;
+ return 1;
+}
+
+void adjust(void) {
+  EM_tokPos=charPos;
+  charPos+=yyleng;
+ }
+
+

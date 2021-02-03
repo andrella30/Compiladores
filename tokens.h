@@ -4,7 +4,6 @@ typedef union  {
 	int pos;
 	int ival;
 	string sval;
-	double dval;
 	} YYSTYPE;
 
 extern YYSTYPE yylval;

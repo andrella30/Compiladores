@@ -38,7 +38,12 @@ nil
 function
 type
 var
-"string"
+"Essa é uma string de teste"
 type_identifier
+.
 5
-/* test */
+3 * 7
+/* */
+/*é apenas um comentário */
+/*é apenas um comentário errado /* aninhado */ */ 
+"Outra String"
