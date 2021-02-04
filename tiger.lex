@@ -8,7 +8,7 @@
 #define MAX_STR_CONST 16384
 
 int line_num = 0;
-int charPos=1;
+int char_pos = 1;
 
 char string_buf[MAX_STR_CONST];
 char *string_buf_ptr;
@@ -28,7 +28,7 @@ void adjust(void);
 <COMMENT>"/*"        {adjust(); line_num++;}
 <COMMENT>"*/"        {adjust(); if (--line_num == 0) {BEGIN(INITIAL);}}
 <COMMENT>"\n"        {adjust(); EM_newline();}
-<COMMENT><<EOF>>     {adjust(); EM_error(EM_tokPos, "UNFINISHED COMMENT"); yyterminate();}
+<COMMENT><<EOF>>     {adjust(); EM_error(EM_tokPos, "UNFINISHED COMMENT"); }
 <COMMENT>.           {adjust();}
 
 <INITIAL>array    {adjust(); return ARRAY;}
@@ -79,28 +79,28 @@ void adjust(void);
 
   /*strings */
 <INITIAL>\"           {adjust(); BEGIN(STR); string_buf_ptr = string_buf;}
-<STR>\"               {adjust(); yylval.sval = String(string_buf); BEGIN 0; return STRING;}
-<STR>\n               {adjust(); EM_error(EM_tokPos,"unclose string"); yyterminate();}
-<STR><<EOF>>          {adjust(); EM_error(EM_tokPos,"unclose string"); yyterminate();}
+<STR>\"               {adjust(); yylval.sval = String(string_buf); BEGIN(INITIAL); return STRING;}
+<STR>\n               {adjust(); EM_error(EM_tokPos,"UNCLOSED STRING"); }
+<STR><<EOF>>          {adjust(); EM_error(EM_tokPos,"UNCLOSED STRING"); }
 <STR>\\n              {*string_buf_ptr++ = '\n';}
 <STR>\\t              {*string_buf_ptr++ = '\t';}
 <STR>\\\              {*string_buf_ptr++ = '"'; }
 <STR>\\\\             {*string_buf_ptr++ = '\\';}
 <STR>\\[0-9]{3}       {int i = atoi(&yytext[1]); *string_buf_ptr++ = (char)i;}
 <STR>\\[\n\t ]+\\     {}
-<STR>\\(.|\n)	        {adjust(); EM_error(EM_tokPos, "illegal token");}
+<STR>\\(.|\n)	        {adjust(); EM_error(EM_tokPos, "ILLEGAL TOKEN");}
 
-<INITIAL>.	          {adjust(); EM_error(EM_tokPos,"illegal token");}
+<INITIAL>.	          {adjust(); EM_error(EM_tokPos,"ILLEGAL TOKEN");}
 %%
 
 int yywrap(void) {
- charPos=1;
+ char_pos=1;
  return 1;
 }
 
 void adjust(void) {
-  EM_tokPos=charPos;
-  charPos+=yyleng;
+  EM_tokPos=char_pos;
+  char_pos+=yyleng;
  }
 
 

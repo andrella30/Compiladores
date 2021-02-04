@@ -39,7 +39,10 @@ int main(int argc, char **argv) {
    if (tok==0) break;
    
    switch(tok) {
-    case ID: case STRING:
+    case ID:
+      printf("%10s %4d %s\n",tokname(tok),EM_tokPos,yylval.sval);
+      break;
+    case STRING:
       printf("%10s %4d %s\n",tokname(tok),EM_tokPos,yylval.sval);
       break;
     case INT:
