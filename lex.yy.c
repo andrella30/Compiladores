@@ -522,7 +522,7 @@ char *yytext;
 #line 2 "tiger.lex"
 #include <string.h>
 #include "util.h"
-#include "tokens.h"
+#include "tiger.tab.h"
 #include "errormsg.h"
 #include <math.h>
 

@@ -1,7 +1,7 @@
 %{
 #include <string.h>
 #include "util.h"
-#include "tokens.h"
+#include "tiger.tab.h"
 #include "errormsg.h"
 #include <math.h>
 

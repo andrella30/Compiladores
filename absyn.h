@@ -1,3 +1,8 @@
+#ifndef ABSYN_H
+#define ABSYN_H
+#include "util.h"
+#include "symbol.h"
+
 typedef int A_pos;
 
 typedef struct A_var_ *A_var;
@@ -124,3 +129,5 @@ A_namety A_Namety(S_symbol name, A_ty ty);
 A_nametyList A_NametyList(A_namety head, A_nametyList tail);
 A_efield A_Efield(S_symbol name, A_exp exp);
 A_efieldList A_EfieldList(A_efield head, A_efieldList tail);
+
+#endif
