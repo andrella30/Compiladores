@@ -1,3 +1,5 @@
+#ifndef SYMBOL_H__
+#define SYMBOL_H__
 #include "util.h"
 
 typedef struct S_symbol_ *S_symbol;
@@ -31,3 +33,4 @@ void S_beginScope(S_table t);
 /* Remove any bindings entered since the current scope began,
    and end the current scope. */
 void S_endScope(S_table t);
+#endif

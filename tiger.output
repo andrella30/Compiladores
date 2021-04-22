@@ -113,49 +113,49 @@ Terminals, with rules where they appear
 
     $end (0) 0
     error (256)
-    COMMA (258) 41 53 62
-    COLON (259) 42 44 48
-    SEMICOLON (260) 58
-    LPAREN (261) 21 26 47 48
-    RPAREN (262) 21 26 47 48
-    LBRACK (263) 23 24 55
-    RBRACK (264) 23 24 55
-    LBRACE (265) 36 49
-    RBRACE (266) 36 49
-    DOT (267) 25
-    EQ (268) 34 47 48 54 67
-    PLUS (269) 63
-    MINUS (270) 8 64
-    TIMES (271) 65
-    DIVIDE (272) 66
-    NEQ (273) 68
-    LT (274) 69
-    LE (275) 70
-    GT (276) 71
-    GE (277) 72
-    AND (278)
-    OR (279)
-    ASSIGN (280) 14 18 43 44
-    ARRAY (281) 37
-    BREAK (282) 19
-    DO (283) 17 18
-    FOR (284) 18
-    TO (285) 18
-    WHILE (286) 17
-    IF (287) 15 16
-    THEN (288) 15 16
-    ELSE (289) 15
-    LET (290) 20
-    IN (291) 20
-    END (292) 20
-    OF (293) 37 55
-    NIL (294) 5
-    FUNCTION (295) 47 48
-    VAR (296) 43 44
-    TYPE (297) 34
-    STRING <sval> (298) 7
-    ID <sval> (299) 73
-    INT <ival> (300) 6
+    STRING <sval> (258) 7
+    ID <sval> (259) 73
+    INT <ival> (260) 6
+    COMMA (261) 41 53 62
+    COLON (262) 42 44 48
+    SEMICOLON (263) 58
+    LPAREN (264) 21 26 47 48
+    RPAREN (265) 21 26 47 48
+    LBRACK (266) 23 24 55
+    RBRACK (267) 23 24 55
+    LBRACE (268) 36 49
+    RBRACE (269) 36 49
+    DOT (270) 25
+    EQ (271) 34 47 48 54 67
+    PLUS (272) 63
+    MINUS (273) 8 64
+    TIMES (274) 65
+    DIVIDE (275) 66
+    NEQ (276) 68
+    LT (277) 69
+    LE (278) 70
+    GT (279) 71
+    GE (280) 72
+    AND (281)
+    OR (282)
+    ASSIGN (283) 14 18 43 44
+    ARRAY (284) 37
+    BREAK (285) 19
+    DO (286) 17 18
+    FOR (287) 18
+    TO (288) 18
+    WHILE (289) 17
+    IF (290) 15 16
+    THEN (291) 15 16
+    ELSE (292) 15
+    LET (293) 20
+    IN (294) 20
+    END (295) 20
+    OF (296) 37 55
+    NIL (297) 5
+    FUNCTION (298) 47 48
+    VAR (299) 43 44
+    TYPE (300) 34
     LOW (301)
     UMINUS (302)
 
@@ -251,17 +251,17 @@ State 0
 
     0 $accept: . program $end
 
-    LPAREN  shift, and go to state 1
-    MINUS   shift, and go to state 2
-    BREAK   shift, and go to state 3
-    FOR     shift, and go to state 4
-    WHILE   shift, and go to state 5
-    IF      shift, and go to state 6
-    LET     shift, and go to state 7
-    NIL     shift, and go to state 8
-    STRING  shift, and go to state 9
-    ID      shift, and go to state 10
-    INT     shift, and go to state 11
+    STRING  shift, and go to state 1
+    ID      shift, and go to state 2
+    INT     shift, and go to state 3
+    LPAREN  shift, and go to state 4
+    MINUS   shift, and go to state 5
+    BREAK   shift, and go to state 6
+    FOR     shift, and go to state 7
+    WHILE   shift, and go to state 8
+    IF      shift, and go to state 9
+    LET     shift, and go to state 10
+    NIL     shift, and go to state 11
 
     $default  reduce using rule 2 (primyexp)
 
@@ -279,19 +279,40 @@ State 0
 
 State 1
 
+    7 exp: STRING .
+
+    $default  reduce using rule 7 (exp)
+
+
+State 2
+
+   73 id: ID .
+
+    $default  reduce using rule 73 (id)
+
+
+State 3
+
+    6 exp: INT .
+
+    $default  reduce using rule 6 (exp)
+
+
+State 4
+
    21 exp: LPAREN . expseq RPAREN
 
-    LPAREN  shift, and go to state 1
-    MINUS   shift, and go to state 2
-    BREAK   shift, and go to state 3
-    FOR     shift, and go to state 4
-    WHILE   shift, and go to state 5
-    IF      shift, and go to state 6
-    LET     shift, and go to state 7
-    NIL     shift, and go to state 8
-    STRING  shift, and go to state 9
-    ID      shift, and go to state 10
-    INT     shift, and go to state 11
+    STRING  shift, and go to state 1
+    ID      shift, and go to state 2
+    INT     shift, and go to state 3
+    LPAREN  shift, and go to state 4
+    MINUS   shift, and go to state 5
+    BREAK   shift, and go to state 6
+    FOR     shift, and go to state 7
+    WHILE   shift, and go to state 8
+    IF      shift, and go to state 9
+    LET     shift, and go to state 10
+    NIL     shift, and go to state 11
 
     $default  reduce using rule 56 (expseq)
 
@@ -306,21 +327,21 @@ State 1
     id             go to state 21
 
 
-State 2
+State 5
 
     8 exp: MINUS . exp
 
-    LPAREN  shift, and go to state 1
-    MINUS   shift, and go to state 2
-    BREAK   shift, and go to state 3
-    FOR     shift, and go to state 4
-    WHILE   shift, and go to state 5
-    IF      shift, and go to state 6
-    LET     shift, and go to state 7
-    NIL     shift, and go to state 8
-    STRING  shift, and go to state 9
-    ID      shift, and go to state 10
-    INT     shift, and go to state 11
+    STRING  shift, and go to state 1
+    ID      shift, and go to state 2
+    INT     shift, and go to state 3
+    LPAREN  shift, and go to state 4
+    MINUS   shift, and go to state 5
+    BREAK   shift, and go to state 6
+    FOR     shift, and go to state 7
+    WHILE   shift, and go to state 8
+    IF      shift, and go to state 9
+    LET     shift, and go to state 10
+    NIL     shift, and go to state 11
 
     exp            go to state 24
     lvalue         go to state 15
@@ -332,37 +353,37 @@ State 2
     id             go to state 21
 
 
-State 3
+State 6
 
    19 exp: BREAK .
 
     $default  reduce using rule 19 (exp)
 
 
-State 4
+State 7
 
    18 exp: FOR . id ASSIGN exp TO exp DO exp
 
-    ID  shift, and go to state 10
+    ID  shift, and go to state 2
 
     id  go to state 25
 
 
-State 5
+State 8
 
    17 exp: WHILE . exp DO exp
 
-    LPAREN  shift, and go to state 1
-    MINUS   shift, and go to state 2
-    BREAK   shift, and go to state 3
-    FOR     shift, and go to state 4
-    WHILE   shift, and go to state 5
-    IF      shift, and go to state 6
-    LET     shift, and go to state 7
-    NIL     shift, and go to state 8
-    STRING  shift, and go to state 9
-    ID      shift, and go to state 10
-    INT     shift, and go to state 11
+    STRING  shift, and go to state 1
+    ID      shift, and go to state 2
+    INT     shift, and go to state 3
+    LPAREN  shift, and go to state 4
+    MINUS   shift, and go to state 5
+    BREAK   shift, and go to state 6
+    FOR     shift, and go to state 7
+    WHILE   shift, and go to state 8
+    IF      shift, and go to state 9
+    LET     shift, and go to state 10
+    NIL     shift, and go to state 11
 
     exp            go to state 26
     lvalue         go to state 15
@@ -374,22 +395,22 @@ State 5
     id             go to state 21
 
 
-State 6
+State 9
 
    15 exp: IF . exp THEN exp ELSE exp
    16    | IF . exp THEN exp
 
-    LPAREN  shift, and go to state 1
-    MINUS   shift, and go to state 2
-    BREAK   shift, and go to state 3
-    FOR     shift, and go to state 4
-    WHILE   shift, and go to state 5
-    IF      shift, and go to state 6
-    LET     shift, and go to state 7
-    NIL     shift, and go to state 8
-    STRING  shift, and go to state 9
-    ID      shift, and go to state 10
-    INT     shift, and go to state 11
+    STRING  shift, and go to state 1
+    ID      shift, and go to state 2
+    INT     shift, and go to state 3
+    LPAREN  shift, and go to state 4
+    MINUS   shift, and go to state 5
+    BREAK   shift, and go to state 6
+    FOR     shift, and go to state 7
+    WHILE   shift, and go to state 8
+    IF      shift, and go to state 9
+    LET     shift, and go to state 10
+    NIL     shift, and go to state 11
 
     exp            go to state 27
     lvalue         go to state 15
@@ -401,7 +422,7 @@ State 6
     id             go to state 21
 
 
-State 7
+State 10
 
    20 exp: LET . decs IN expseq END
 
@@ -420,32 +441,11 @@ State 7
     fundec      go to state 37
 
 
-State 8
+State 11
 
     5 exp: NIL .
 
     $default  reduce using rule 5 (exp)
-
-
-State 9
-
-    7 exp: STRING .
-
-    $default  reduce using rule 7 (exp)
-
-
-State 10
-
-   73 id: ID .
-
-    $default  reduce using rule 73 (id)
-
-
-State 11
-
-    6 exp: INT .
-
-    $default  reduce using rule 6 (exp)
 
 
 State 12
@@ -675,7 +675,7 @@ State 28
    47 fundec: FUNCTION . id LPAREN typefields RPAREN EQ exp
    48       | FUNCTION . id LPAREN typefields RPAREN COLON id EQ exp
 
-    ID  shift, and go to state 10
+    ID  shift, and go to state 2
 
     id  go to state 60
 
@@ -685,7 +685,7 @@ State 29
    43 vardec: VAR . id ASSIGN exp
    44       | VAR . id COLON id ASSIGN exp
 
-    ID  shift, and go to state 10
+    ID  shift, and go to state 2
 
     id  go to state 61
 
@@ -694,7 +694,7 @@ State 30
 
    34 tydec: TYPE . id EQ ty
 
-    ID  shift, and go to state 10
+    ID  shift, and go to state 2
 
     id  go to state 62
 
@@ -783,17 +783,17 @@ State 39
 
    67 cmp_exp: exp EQ . exp
 
-    LPAREN  shift, and go to state 1
-    MINUS   shift, and go to state 2
-    BREAK   shift, and go to state 3
-    FOR     shift, and go to state 4
-    WHILE   shift, and go to state 5
-    IF      shift, and go to state 6
-    LET     shift, and go to state 7
-    NIL     shift, and go to state 8
-    STRING  shift, and go to state 9
-    ID      shift, and go to state 10
-    INT     shift, and go to state 11
+    STRING  shift, and go to state 1
+    ID      shift, and go to state 2
+    INT     shift, and go to state 3
+    LPAREN  shift, and go to state 4
+    MINUS   shift, and go to state 5
+    BREAK   shift, and go to state 6
+    FOR     shift, and go to state 7
+    WHILE   shift, and go to state 8
+    IF      shift, and go to state 9
+    LET     shift, and go to state 10
+    NIL     shift, and go to state 11
 
     exp            go to state 67
     lvalue         go to state 15
@@ -809,17 +809,17 @@ State 40
 
    63 arith_exp: exp PLUS . exp
 
-    LPAREN  shift, and go to state 1
-    MINUS   shift, and go to state 2
-    BREAK   shift, and go to state 3
-    FOR     shift, and go to state 4
-    WHILE   shift, and go to state 5
-    IF      shift, and go to state 6
-    LET     shift, and go to state 7
-    NIL     shift, and go to state 8
-    STRING  shift, and go to state 9
-    ID      shift, and go to state 10
-    INT     shift, and go to state 11
+    STRING  shift, and go to state 1
+    ID      shift, and go to state 2
+    INT     shift, and go to state 3
+    LPAREN  shift, and go to state 4
+    MINUS   shift, and go to state 5
+    BREAK   shift, and go to state 6
+    FOR     shift, and go to state 7
+    WHILE   shift, and go to state 8
+    IF      shift, and go to state 9
+    LET     shift, and go to state 10
+    NIL     shift, and go to state 11
 
     exp            go to state 68
     lvalue         go to state 15
@@ -835,17 +835,17 @@ State 41
 
    64 arith_exp: exp MINUS . exp
 
-    LPAREN  shift, and go to state 1
-    MINUS   shift, and go to state 2
-    BREAK   shift, and go to state 3
-    FOR     shift, and go to state 4
-    WHILE   shift, and go to state 5
-    IF      shift, and go to state 6
-    LET     shift, and go to state 7
-    NIL     shift, and go to state 8
-    STRING  shift, and go to state 9
-    ID      shift, and go to state 10
-    INT     shift, and go to state 11
+    STRING  shift, and go to state 1
+    ID      shift, and go to state 2
+    INT     shift, and go to state 3
+    LPAREN  shift, and go to state 4
+    MINUS   shift, and go to state 5
+    BREAK   shift, and go to state 6
+    FOR     shift, and go to state 7
+    WHILE   shift, and go to state 8
+    IF      shift, and go to state 9
+    LET     shift, and go to state 10
+    NIL     shift, and go to state 11
 
     exp            go to state 69
     lvalue         go to state 15
@@ -861,17 +861,17 @@ State 42
 
    65 arith_exp: exp TIMES . exp
 
-    LPAREN  shift, and go to state 1
-    MINUS   shift, and go to state 2
-    BREAK   shift, and go to state 3
-    FOR     shift, and go to state 4
-    WHILE   shift, and go to state 5
-    IF      shift, and go to state 6
-    LET     shift, and go to state 7
-    NIL     shift, and go to state 8
-    STRING  shift, and go to state 9
-    ID      shift, and go to state 10
-    INT     shift, and go to state 11
+    STRING  shift, and go to state 1
+    ID      shift, and go to state 2
+    INT     shift, and go to state 3
+    LPAREN  shift, and go to state 4
+    MINUS   shift, and go to state 5
+    BREAK   shift, and go to state 6
+    FOR     shift, and go to state 7
+    WHILE   shift, and go to state 8
+    IF      shift, and go to state 9
+    LET     shift, and go to state 10
+    NIL     shift, and go to state 11
 
     exp            go to state 70
     lvalue         go to state 15
@@ -887,17 +887,17 @@ State 43
 
    66 arith_exp: exp DIVIDE . exp
 
-    LPAREN  shift, and go to state 1
-    MINUS   shift, and go to state 2
-    BREAK   shift, and go to state 3
-    FOR     shift, and go to state 4
-    WHILE   shift, and go to state 5
-    IF      shift, and go to state 6
-    LET     shift, and go to state 7
-    NIL     shift, and go to state 8
-    STRING  shift, and go to state 9
-    ID      shift, and go to state 10
-    INT     shift, and go to state 11
+    STRING  shift, and go to state 1
+    ID      shift, and go to state 2
+    INT     shift, and go to state 3
+    LPAREN  shift, and go to state 4
+    MINUS   shift, and go to state 5
+    BREAK   shift, and go to state 6
+    FOR     shift, and go to state 7
+    WHILE   shift, and go to state 8
+    IF      shift, and go to state 9
+    LET     shift, and go to state 10
+    NIL     shift, and go to state 11
 
     exp            go to state 71
     lvalue         go to state 15
@@ -913,17 +913,17 @@ State 44
 
    68 cmp_exp: exp NEQ . exp
 
-    LPAREN  shift, and go to state 1
-    MINUS   shift, and go to state 2
-    BREAK   shift, and go to state 3
-    FOR     shift, and go to state 4
-    WHILE   shift, and go to state 5
-    IF      shift, and go to state 6
-    LET     shift, and go to state 7
-    NIL     shift, and go to state 8
-    STRING  shift, and go to state 9
-    ID      shift, and go to state 10
-    INT     shift, and go to state 11
+    STRING  shift, and go to state 1
+    ID      shift, and go to state 2
+    INT     shift, and go to state 3
+    LPAREN  shift, and go to state 4
+    MINUS   shift, and go to state 5
+    BREAK   shift, and go to state 6
+    FOR     shift, and go to state 7
+    WHILE   shift, and go to state 8
+    IF      shift, and go to state 9
+    LET     shift, and go to state 10
+    NIL     shift, and go to state 11
 
     exp            go to state 72
     lvalue         go to state 15
@@ -939,17 +939,17 @@ State 45
 
    69 cmp_exp: exp LT . exp
 
-    LPAREN  shift, and go to state 1
-    MINUS   shift, and go to state 2
-    BREAK   shift, and go to state 3
-    FOR     shift, and go to state 4
-    WHILE   shift, and go to state 5
-    IF      shift, and go to state 6
-    LET     shift, and go to state 7
-    NIL     shift, and go to state 8
-    STRING  shift, and go to state 9
-    ID      shift, and go to state 10
-    INT     shift, and go to state 11
+    STRING  shift, and go to state 1
+    ID      shift, and go to state 2
+    INT     shift, and go to state 3
+    LPAREN  shift, and go to state 4
+    MINUS   shift, and go to state 5
+    BREAK   shift, and go to state 6
+    FOR     shift, and go to state 7
+    WHILE   shift, and go to state 8
+    IF      shift, and go to state 9
+    LET     shift, and go to state 10
+    NIL     shift, and go to state 11
 
     exp            go to state 73
     lvalue         go to state 15
@@ -965,17 +965,17 @@ State 46
 
    70 cmp_exp: exp LE . exp
 
-    LPAREN  shift, and go to state 1
-    MINUS   shift, and go to state 2
-    BREAK   shift, and go to state 3
-    FOR     shift, and go to state 4
-    WHILE   shift, and go to state 5
-    IF      shift, and go to state 6
-    LET     shift, and go to state 7
-    NIL     shift, and go to state 8
-    STRING  shift, and go to state 9
-    ID      shift, and go to state 10
-    INT     shift, and go to state 11
+    STRING  shift, and go to state 1
+    ID      shift, and go to state 2
+    INT     shift, and go to state 3
+    LPAREN  shift, and go to state 4
+    MINUS   shift, and go to state 5
+    BREAK   shift, and go to state 6
+    FOR     shift, and go to state 7
+    WHILE   shift, and go to state 8
+    IF      shift, and go to state 9
+    LET     shift, and go to state 10
+    NIL     shift, and go to state 11
 
     exp            go to state 74
     lvalue         go to state 15
@@ -991,17 +991,17 @@ State 47
 
    71 cmp_exp: exp GT . exp
 
-    LPAREN  shift, and go to state 1
-    MINUS   shift, and go to state 2
-    BREAK   shift, and go to state 3
-    FOR     shift, and go to state 4
-    WHILE   shift, and go to state 5
-    IF      shift, and go to state 6
-    LET     shift, and go to state 7
-    NIL     shift, and go to state 8
-    STRING  shift, and go to state 9
-    ID      shift, and go to state 10
-    INT     shift, and go to state 11
+    STRING  shift, and go to state 1
+    ID      shift, and go to state 2
+    INT     shift, and go to state 3
+    LPAREN  shift, and go to state 4
+    MINUS   shift, and go to state 5
+    BREAK   shift, and go to state 6
+    FOR     shift, and go to state 7
+    WHILE   shift, and go to state 8
+    IF      shift, and go to state 9
+    LET     shift, and go to state 10
+    NIL     shift, and go to state 11
 
     exp            go to state 75
     lvalue         go to state 15
@@ -1017,17 +1017,17 @@ State 48
 
    72 cmp_exp: exp GE . exp
 
-    LPAREN  shift, and go to state 1
-    MINUS   shift, and go to state 2
-    BREAK   shift, and go to state 3
-    FOR     shift, and go to state 4
-    WHILE   shift, and go to state 5
-    IF      shift, and go to state 6
-    LET     shift, and go to state 7
-    NIL     shift, and go to state 8
-    STRING  shift, and go to state 9
-    ID      shift, and go to state 10
-    INT     shift, and go to state 11
+    STRING  shift, and go to state 1
+    ID      shift, and go to state 2
+    INT     shift, and go to state 3
+    LPAREN  shift, and go to state 4
+    MINUS   shift, and go to state 5
+    BREAK   shift, and go to state 6
+    FOR     shift, and go to state 7
+    WHILE   shift, and go to state 8
+    IF      shift, and go to state 9
+    LET     shift, and go to state 10
+    NIL     shift, and go to state 11
 
     exp            go to state 76
     lvalue         go to state 15
@@ -1043,17 +1043,17 @@ State 49
 
    24 lvalue: lvalue LBRACK . exp RBRACK
 
-    LPAREN  shift, and go to state 1
-    MINUS   shift, and go to state 2
-    BREAK   shift, and go to state 3
-    FOR     shift, and go to state 4
-    WHILE   shift, and go to state 5
-    IF      shift, and go to state 6
-    LET     shift, and go to state 7
-    NIL     shift, and go to state 8
-    STRING  shift, and go to state 9
-    ID      shift, and go to state 10
-    INT     shift, and go to state 11
+    STRING  shift, and go to state 1
+    ID      shift, and go to state 2
+    INT     shift, and go to state 3
+    LPAREN  shift, and go to state 4
+    MINUS   shift, and go to state 5
+    BREAK   shift, and go to state 6
+    FOR     shift, and go to state 7
+    WHILE   shift, and go to state 8
+    IF      shift, and go to state 9
+    LET     shift, and go to state 10
+    NIL     shift, and go to state 11
 
     exp            go to state 77
     lvalue         go to state 15
@@ -1069,7 +1069,7 @@ State 50
 
    25 lvalue: lvalue DOT . id
 
-    ID  shift, and go to state 10
+    ID  shift, and go to state 2
 
     id  go to state 78
 
@@ -1078,17 +1078,17 @@ State 51
 
    14 exp: lvalue ASSIGN . exp
 
-    LPAREN  shift, and go to state 1
-    MINUS   shift, and go to state 2
-    BREAK   shift, and go to state 3
-    FOR     shift, and go to state 4
-    WHILE   shift, and go to state 5
-    IF      shift, and go to state 6
-    LET     shift, and go to state 7
-    NIL     shift, and go to state 8
-    STRING  shift, and go to state 9
-    ID      shift, and go to state 10
-    INT     shift, and go to state 11
+    STRING  shift, and go to state 1
+    ID      shift, and go to state 2
+    INT     shift, and go to state 3
+    LPAREN  shift, and go to state 4
+    MINUS   shift, and go to state 5
+    BREAK   shift, and go to state 6
+    FOR     shift, and go to state 7
+    WHILE   shift, and go to state 8
+    IF      shift, and go to state 9
+    LET     shift, and go to state 10
+    NIL     shift, and go to state 11
 
     exp            go to state 79
     lvalue         go to state 15
@@ -1104,17 +1104,17 @@ State 52
 
    26 func_call: id LPAREN . explist RPAREN
 
-    LPAREN  shift, and go to state 1
-    MINUS   shift, and go to state 2
-    BREAK   shift, and go to state 3
-    FOR     shift, and go to state 4
-    WHILE   shift, and go to state 5
-    IF      shift, and go to state 6
-    LET     shift, and go to state 7
-    NIL     shift, and go to state 8
-    STRING  shift, and go to state 9
-    ID      shift, and go to state 10
-    INT     shift, and go to state 11
+    STRING  shift, and go to state 1
+    ID      shift, and go to state 2
+    INT     shift, and go to state 3
+    LPAREN  shift, and go to state 4
+    MINUS   shift, and go to state 5
+    BREAK   shift, and go to state 6
+    FOR     shift, and go to state 7
+    WHILE   shift, and go to state 8
+    IF      shift, and go to state 9
+    LET     shift, and go to state 10
+    NIL     shift, and go to state 11
 
     $default  reduce using rule 59 (explist)
 
@@ -1135,17 +1135,17 @@ State 53
    23 lvalue: id LBRACK . exp RBRACK
    55 array_create: id LBRACK . exp RBRACK OF exp
 
-    LPAREN  shift, and go to state 1
-    MINUS   shift, and go to state 2
-    BREAK   shift, and go to state 3
-    FOR     shift, and go to state 4
-    WHILE   shift, and go to state 5
-    IF      shift, and go to state 6
-    LET     shift, and go to state 7
-    NIL     shift, and go to state 8
-    STRING  shift, and go to state 9
-    ID      shift, and go to state 10
-    INT     shift, and go to state 11
+    STRING  shift, and go to state 1
+    ID      shift, and go to state 2
+    INT     shift, and go to state 3
+    LPAREN  shift, and go to state 4
+    MINUS   shift, and go to state 5
+    BREAK   shift, and go to state 6
+    FOR     shift, and go to state 7
+    WHILE   shift, and go to state 8
+    IF      shift, and go to state 9
+    LET     shift, and go to state 10
+    NIL     shift, and go to state 11
 
     exp            go to state 83
     lvalue         go to state 15
@@ -1161,7 +1161,7 @@ State 54
 
    49 record_create: id LBRACE . record_create_list RBRACE
 
-    ID  shift, and go to state 10
+    ID  shift, and go to state 2
 
     $default  reduce using rule 50 (record_create_list)
 
@@ -1175,17 +1175,17 @@ State 55
 
    58 expseq: exp SEMICOLON . expseq
 
-    LPAREN  shift, and go to state 1
-    MINUS   shift, and go to state 2
-    BREAK   shift, and go to state 3
-    FOR     shift, and go to state 4
-    WHILE   shift, and go to state 5
-    IF      shift, and go to state 6
-    LET     shift, and go to state 7
-    NIL     shift, and go to state 8
-    STRING  shift, and go to state 9
-    ID      shift, and go to state 10
-    INT     shift, and go to state 11
+    STRING  shift, and go to state 1
+    ID      shift, and go to state 2
+    INT     shift, and go to state 3
+    LPAREN  shift, and go to state 4
+    MINUS   shift, and go to state 5
+    BREAK   shift, and go to state 6
+    FOR     shift, and go to state 7
+    WHILE   shift, and go to state 8
+    IF      shift, and go to state 9
+    LET     shift, and go to state 10
+    NIL     shift, and go to state 11
 
     $default  reduce using rule 56 (expseq)
 
@@ -1211,17 +1211,17 @@ State 57
 
    18 exp: FOR id ASSIGN . exp TO exp DO exp
 
-    LPAREN  shift, and go to state 1
-    MINUS   shift, and go to state 2
-    BREAK   shift, and go to state 3
-    FOR     shift, and go to state 4
-    WHILE   shift, and go to state 5
-    IF      shift, and go to state 6
-    LET     shift, and go to state 7
-    NIL     shift, and go to state 8
-    STRING  shift, and go to state 9
-    ID      shift, and go to state 10
-    INT     shift, and go to state 11
+    STRING  shift, and go to state 1
+    ID      shift, and go to state 2
+    INT     shift, and go to state 3
+    LPAREN  shift, and go to state 4
+    MINUS   shift, and go to state 5
+    BREAK   shift, and go to state 6
+    FOR     shift, and go to state 7
+    WHILE   shift, and go to state 8
+    IF      shift, and go to state 9
+    LET     shift, and go to state 10
+    NIL     shift, and go to state 11
 
     exp            go to state 89
     lvalue         go to state 15
@@ -1237,17 +1237,17 @@ State 58
 
    17 exp: WHILE exp DO . exp
 
-    LPAREN  shift, and go to state 1
-    MINUS   shift, and go to state 2
-    BREAK   shift, and go to state 3
-    FOR     shift, and go to state 4
-    WHILE   shift, and go to state 5
-    IF      shift, and go to state 6
-    LET     shift, and go to state 7
-    NIL     shift, and go to state 8
-    STRING  shift, and go to state 9
-    ID      shift, and go to state 10
-    INT     shift, and go to state 11
+    STRING  shift, and go to state 1
+    ID      shift, and go to state 2
+    INT     shift, and go to state 3
+    LPAREN  shift, and go to state 4
+    MINUS   shift, and go to state 5
+    BREAK   shift, and go to state 6
+    FOR     shift, and go to state 7
+    WHILE   shift, and go to state 8
+    IF      shift, and go to state 9
+    LET     shift, and go to state 10
+    NIL     shift, and go to state 11
 
     exp            go to state 90
     lvalue         go to state 15
@@ -1264,17 +1264,17 @@ State 59
    15 exp: IF exp THEN . exp ELSE exp
    16    | IF exp THEN . exp
 
-    LPAREN  shift, and go to state 1
-    MINUS   shift, and go to state 2
-    BREAK   shift, and go to state 3
-    FOR     shift, and go to state 4
-    WHILE   shift, and go to state 5
-    IF      shift, and go to state 6
-    LET     shift, and go to state 7
-    NIL     shift, and go to state 8
-    STRING  shift, and go to state 9
-    ID      shift, and go to state 10
-    INT     shift, and go to state 11
+    STRING  shift, and go to state 1
+    ID      shift, and go to state 2
+    INT     shift, and go to state 3
+    LPAREN  shift, and go to state 4
+    MINUS   shift, and go to state 5
+    BREAK   shift, and go to state 6
+    FOR     shift, and go to state 7
+    WHILE   shift, and go to state 8
+    IF      shift, and go to state 9
+    LET     shift, and go to state 10
+    NIL     shift, and go to state 11
 
     exp            go to state 91
     lvalue         go to state 15
@@ -1314,17 +1314,17 @@ State 63
 
    20 exp: LET decs IN . expseq END
 
-    LPAREN  shift, and go to state 1
-    MINUS   shift, and go to state 2
-    BREAK   shift, and go to state 3
-    FOR     shift, and go to state 4
-    WHILE   shift, and go to state 5
-    IF      shift, and go to state 6
-    LET     shift, and go to state 7
-    NIL     shift, and go to state 8
-    STRING  shift, and go to state 9
-    ID      shift, and go to state 10
-    INT     shift, and go to state 11
+    STRING  shift, and go to state 1
+    ID      shift, and go to state 2
+    INT     shift, and go to state 3
+    LPAREN  shift, and go to state 4
+    MINUS   shift, and go to state 5
+    BREAK   shift, and go to state 6
+    FOR     shift, and go to state 7
+    WHILE   shift, and go to state 8
+    IF      shift, and go to state 9
+    LET     shift, and go to state 10
+    NIL     shift, and go to state 11
 
     $default  reduce using rule 56 (expseq)
 
@@ -1870,7 +1870,7 @@ State 92
    47 fundec: FUNCTION id LPAREN . typefields RPAREN EQ exp
    48       | FUNCTION id LPAREN . typefields RPAREN COLON id EQ exp
 
-    ID  shift, and go to state 10
+    ID  shift, and go to state 2
 
     $default  reduce using rule 38 (typefields)
 
@@ -1884,7 +1884,7 @@ State 93
 
    44 vardec: VAR id COLON . id ASSIGN exp
 
-    ID  shift, and go to state 10
+    ID  shift, and go to state 2
 
     id  go to state 110
 
@@ -1893,17 +1893,17 @@ State 94
 
    43 vardec: VAR id ASSIGN . exp
 
-    LPAREN  shift, and go to state 1
-    MINUS   shift, and go to state 2
-    BREAK   shift, and go to state 3
-    FOR     shift, and go to state 4
-    WHILE   shift, and go to state 5
-    IF      shift, and go to state 6
-    LET     shift, and go to state 7
-    NIL     shift, and go to state 8
-    STRING  shift, and go to state 9
-    ID      shift, and go to state 10
-    INT     shift, and go to state 11
+    STRING  shift, and go to state 1
+    ID      shift, and go to state 2
+    INT     shift, and go to state 3
+    LPAREN  shift, and go to state 4
+    MINUS   shift, and go to state 5
+    BREAK   shift, and go to state 6
+    FOR     shift, and go to state 7
+    WHILE   shift, and go to state 8
+    IF      shift, and go to state 9
+    LET     shift, and go to state 10
+    NIL     shift, and go to state 11
 
     exp            go to state 111
     lvalue         go to state 15
@@ -1919,9 +1919,9 @@ State 95
 
    34 tydec: TYPE id EQ . ty
 
+    ID      shift, and go to state 2
     LBRACE  shift, and go to state 112
     ARRAY   shift, and go to state 113
-    ID      shift, and go to state 10
 
     ty  go to state 114
     id  go to state 115
@@ -1945,17 +1945,17 @@ State 98
 
    62 explist_nonempty: exp COMMA . explist_nonempty
 
-    LPAREN  shift, and go to state 1
-    MINUS   shift, and go to state 2
-    BREAK   shift, and go to state 3
-    FOR     shift, and go to state 4
-    WHILE   shift, and go to state 5
-    IF      shift, and go to state 6
-    LET     shift, and go to state 7
-    NIL     shift, and go to state 8
-    STRING  shift, and go to state 9
-    ID      shift, and go to state 10
-    INT     shift, and go to state 11
+    STRING  shift, and go to state 1
+    ID      shift, and go to state 2
+    INT     shift, and go to state 3
+    LPAREN  shift, and go to state 4
+    MINUS   shift, and go to state 5
+    BREAK   shift, and go to state 6
+    FOR     shift, and go to state 7
+    WHILE   shift, and go to state 8
+    IF      shift, and go to state 9
+    LET     shift, and go to state 10
+    NIL     shift, and go to state 11
 
     exp               go to state 80
     lvalue            go to state 15
@@ -1996,7 +1996,7 @@ State 102
 
    53 record_create_list_nonempty: record_create_field COMMA . record_create_list_nonempty
 
-    ID  shift, and go to state 10
+    ID  shift, and go to state 2
 
     record_create_list_nonempty  go to state 119
     record_create_field          go to state 86
@@ -2007,17 +2007,17 @@ State 103
 
    54 record_create_field: id EQ . exp
 
-    LPAREN  shift, and go to state 1
-    MINUS   shift, and go to state 2
-    BREAK   shift, and go to state 3
-    FOR     shift, and go to state 4
-    WHILE   shift, and go to state 5
-    IF      shift, and go to state 6
-    LET     shift, and go to state 7
-    NIL     shift, and go to state 8
-    STRING  shift, and go to state 9
-    ID      shift, and go to state 10
-    INT     shift, and go to state 11
+    STRING  shift, and go to state 1
+    ID      shift, and go to state 2
+    INT     shift, and go to state 3
+    LPAREN  shift, and go to state 4
+    MINUS   shift, and go to state 5
+    BREAK   shift, and go to state 6
+    FOR     shift, and go to state 7
+    WHILE   shift, and go to state 8
+    IF      shift, and go to state 9
+    LET     shift, and go to state 10
+    NIL     shift, and go to state 11
 
     exp            go to state 120
     lvalue         go to state 15
@@ -2033,17 +2033,17 @@ State 104
 
    18 exp: FOR id ASSIGN exp TO . exp DO exp
 
-    LPAREN  shift, and go to state 1
-    MINUS   shift, and go to state 2
-    BREAK   shift, and go to state 3
-    FOR     shift, and go to state 4
-    WHILE   shift, and go to state 5
-    IF      shift, and go to state 6
-    LET     shift, and go to state 7
-    NIL     shift, and go to state 8
-    STRING  shift, and go to state 9
-    ID      shift, and go to state 10
-    INT     shift, and go to state 11
+    STRING  shift, and go to state 1
+    ID      shift, and go to state 2
+    INT     shift, and go to state 3
+    LPAREN  shift, and go to state 4
+    MINUS   shift, and go to state 5
+    BREAK   shift, and go to state 6
+    FOR     shift, and go to state 7
+    WHILE   shift, and go to state 8
+    IF      shift, and go to state 9
+    LET     shift, and go to state 10
+    NIL     shift, and go to state 11
 
     exp            go to state 121
     lvalue         go to state 15
@@ -2059,17 +2059,17 @@ State 105
 
    15 exp: IF exp THEN exp ELSE . exp
 
-    LPAREN  shift, and go to state 1
-    MINUS   shift, and go to state 2
-    BREAK   shift, and go to state 3
-    FOR     shift, and go to state 4
-    WHILE   shift, and go to state 5
-    IF      shift, and go to state 6
-    LET     shift, and go to state 7
-    NIL     shift, and go to state 8
-    STRING  shift, and go to state 9
-    ID      shift, and go to state 10
-    INT     shift, and go to state 11
+    STRING  shift, and go to state 1
+    ID      shift, and go to state 2
+    INT     shift, and go to state 3
+    LPAREN  shift, and go to state 4
+    MINUS   shift, and go to state 5
+    BREAK   shift, and go to state 6
+    FOR     shift, and go to state 7
+    WHILE   shift, and go to state 8
+    IF      shift, and go to state 9
+    LET     shift, and go to state 10
+    NIL     shift, and go to state 11
 
     exp            go to state 122
     lvalue         go to state 15
@@ -2152,7 +2152,7 @@ State 112
 
    36 ty: LBRACE . typefields RBRACE
 
-    ID  shift, and go to state 10
+    ID  shift, and go to state 2
 
     $default  reduce using rule 38 (typefields)
 
@@ -2201,17 +2201,17 @@ State 118
 
    55 array_create: id LBRACK exp RBRACK OF . exp
 
-    LPAREN  shift, and go to state 1
-    MINUS   shift, and go to state 2
-    BREAK   shift, and go to state 3
-    FOR     shift, and go to state 4
-    WHILE   shift, and go to state 5
-    IF      shift, and go to state 6
-    LET     shift, and go to state 7
-    NIL     shift, and go to state 8
-    STRING  shift, and go to state 9
-    ID      shift, and go to state 10
-    INT     shift, and go to state 11
+    STRING  shift, and go to state 1
+    ID      shift, and go to state 2
+    INT     shift, and go to state 3
+    LPAREN  shift, and go to state 4
+    MINUS   shift, and go to state 5
+    BREAK   shift, and go to state 6
+    FOR     shift, and go to state 7
+    WHILE   shift, and go to state 8
+    IF      shift, and go to state 9
+    LET     shift, and go to state 10
+    NIL     shift, and go to state 11
 
     exp            go to state 129
     lvalue         go to state 15
@@ -2326,7 +2326,7 @@ State 124
 
    41 typefields_nonempty: typefield COMMA . typefields_nonempty
 
-    ID  shift, and go to state 10
+    ID  shift, and go to state 2
 
     typefields_nonempty  go to state 133
     typefield            go to state 108
@@ -2337,7 +2337,7 @@ State 125
 
    42 typefield: id COLON . id
 
-    ID  shift, and go to state 10
+    ID  shift, and go to state 2
 
     id  go to state 134
 
@@ -2346,17 +2346,17 @@ State 126
 
    44 vardec: VAR id COLON id ASSIGN . exp
 
-    LPAREN  shift, and go to state 1
-    MINUS   shift, and go to state 2
-    BREAK   shift, and go to state 3
-    FOR     shift, and go to state 4
-    WHILE   shift, and go to state 5
-    IF      shift, and go to state 6
-    LET     shift, and go to state 7
-    NIL     shift, and go to state 8
-    STRING  shift, and go to state 9
-    ID      shift, and go to state 10
-    INT     shift, and go to state 11
+    STRING  shift, and go to state 1
+    ID      shift, and go to state 2
+    INT     shift, and go to state 3
+    LPAREN  shift, and go to state 4
+    MINUS   shift, and go to state 5
+    BREAK   shift, and go to state 6
+    FOR     shift, and go to state 7
+    WHILE   shift, and go to state 8
+    IF      shift, and go to state 9
+    LET     shift, and go to state 10
+    NIL     shift, and go to state 11
 
     exp            go to state 135
     lvalue         go to state 15
@@ -2379,7 +2379,7 @@ State 128
 
    37 ty: ARRAY OF . id
 
-    ID  shift, and go to state 10
+    ID  shift, and go to state 2
 
     id  go to state 137
 
@@ -2416,17 +2416,17 @@ State 130
 
    18 exp: FOR id ASSIGN exp TO exp DO . exp
 
-    LPAREN  shift, and go to state 1
-    MINUS   shift, and go to state 2
-    BREAK   shift, and go to state 3
-    FOR     shift, and go to state 4
-    WHILE   shift, and go to state 5
-    IF      shift, and go to state 6
-    LET     shift, and go to state 7
-    NIL     shift, and go to state 8
-    STRING  shift, and go to state 9
-    ID      shift, and go to state 10
-    INT     shift, and go to state 11
+    STRING  shift, and go to state 1
+    ID      shift, and go to state 2
+    INT     shift, and go to state 3
+    LPAREN  shift, and go to state 4
+    MINUS   shift, and go to state 5
+    BREAK   shift, and go to state 6
+    FOR     shift, and go to state 7
+    WHILE   shift, and go to state 8
+    IF      shift, and go to state 9
+    LET     shift, and go to state 10
+    NIL     shift, and go to state 11
 
     exp            go to state 138
     lvalue         go to state 15
@@ -2442,7 +2442,7 @@ State 131
 
    48 fundec: FUNCTION id LPAREN typefields RPAREN COLON . id EQ exp
 
-    ID  shift, and go to state 10
+    ID  shift, and go to state 2
 
     id  go to state 139
 
@@ -2451,17 +2451,17 @@ State 132
 
    47 fundec: FUNCTION id LPAREN typefields RPAREN EQ . exp
 
-    LPAREN  shift, and go to state 1
-    MINUS   shift, and go to state 2
-    BREAK   shift, and go to state 3
-    FOR     shift, and go to state 4
-    WHILE   shift, and go to state 5
-    IF      shift, and go to state 6
-    LET     shift, and go to state 7
-    NIL     shift, and go to state 8
-    STRING  shift, and go to state 9
-    ID      shift, and go to state 10
-    INT     shift, and go to state 11
+    STRING  shift, and go to state 1
+    ID      shift, and go to state 2
+    INT     shift, and go to state 3
+    LPAREN  shift, and go to state 4
+    MINUS   shift, and go to state 5
+    BREAK   shift, and go to state 6
+    FOR     shift, and go to state 7
+    WHILE   shift, and go to state 8
+    IF      shift, and go to state 9
+    LET     shift, and go to state 10
+    NIL     shift, and go to state 11
 
     exp            go to state 140
     lvalue         go to state 15
@@ -2596,17 +2596,17 @@ State 141
 
    48 fundec: FUNCTION id LPAREN typefields RPAREN COLON id EQ . exp
 
-    LPAREN  shift, and go to state 1
-    MINUS   shift, and go to state 2
-    BREAK   shift, and go to state 3
-    FOR     shift, and go to state 4
-    WHILE   shift, and go to state 5
-    IF      shift, and go to state 6
-    LET     shift, and go to state 7
-    NIL     shift, and go to state 8
-    STRING  shift, and go to state 9
-    ID      shift, and go to state 10
-    INT     shift, and go to state 11
+    STRING  shift, and go to state 1
+    ID      shift, and go to state 2
+    INT     shift, and go to state 3
+    LPAREN  shift, and go to state 4
+    MINUS   shift, and go to state 5
+    BREAK   shift, and go to state 6
+    FOR     shift, and go to state 7
+    WHILE   shift, and go to state 8
+    IF      shift, and go to state 9
+    LET     shift, and go to state 10
+    NIL     shift, and go to state 11
 
     exp            go to state 142
     lvalue         go to state 15

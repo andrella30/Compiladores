@@ -1,6 +1,6 @@
-#ifndef ABSYN_H
-#define ABSYN_H
-#include "util.h"
+#ifndef ABSYN_H__
+#define ABSYN_H__
+
 #include "symbol.h"
 
 typedef int A_pos;

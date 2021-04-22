@@ -1,5 +1,5 @@
-#ifndef PARSE_H
-#define PARSE_H
+#ifndef PARSE_H__
+#define PARSE_H__
 #include "absyn.h"
 
 A_exp parse(string fname);

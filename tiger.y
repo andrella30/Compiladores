@@ -17,26 +17,30 @@ int yyerror(char *msg) {
 %}
 
 
-%union{
-    string sval;
+%union {
+    int pos;
     int ival;
-    int pos; 
+    string sval;
+	S_symbol sym;
     A_var var;
     A_exp exp;
     A_dec dec;
     A_ty ty;
-    A_namety namety;
-    A_nametyList nametylist;
     A_decList declist;
     A_expList explist;
     A_field field;
     A_fieldList fieldlist;
     A_fundec fundec;
     A_fundecList fundeclist;
+    A_namety namety;
+    A_nametyList nametylist;
     A_efield efield;
     A_efieldList efieldlist;
-    S_symbol sym;
 }
+
+
+%token <sval> STRING ID
+%token <ival> INT
 
 %token 
   COMMA COLON SEMICOLON LPAREN RPAREN LBRACK RBRACK 
@@ -46,9 +50,6 @@ int yyerror(char *msg) {
   ARRAY BREAK DO FOR TO WHILE IF THEN ELSE LET IN END OF 
   NIL
   FUNCTION VAR TYPE
-
-%token <sval> STRING ID
-%token <ival> INT
 
 %type <exp> exp func_call arith_exp cmp_exp record_create array_create primyexp 
 %type <var> lvalue

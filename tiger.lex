@@ -1,9 +1,10 @@
 %{
 #include <string.h>
+#include <limits.h>
 #include "util.h"
+#include "absyn.h"
 #include "tiger.tab.h"
 #include "errormsg.h"
-#include <math.h>
 
 #define MAX_STR_CONST 16384
 
@@ -17,24 +18,15 @@ void adjust(void);
 
 %}
 
-%x COMMENT STR
+%x COMMENT STRING_ML STRING_S
+asc_range ([01][0-9]{2}|2[0-4][0-9]|25[0-5])
 %%
 
-<INITIAL>[ \t\r]      {adjust(); continue;}
-<INITIAL>\n           {adjust(); EM_newline(); continue;}
-
-  /*comments*/ 
-<INITIAL>"/*"        {adjust(); BEGIN(COMMENT); line_num++;}
-<COMMENT>"/*"        {adjust(); line_num++;}
-<COMMENT>"*/"        {adjust(); if (--line_num == 0) {BEGIN(INITIAL);}}
-<COMMENT>"\n"        {adjust(); EM_newline();}
-<COMMENT><<EOF>>     {adjust(); EM_error(EM_tokPos, "UNFINISHED COMMENT"); }
-<COMMENT>.           {adjust();}
 
 <INITIAL>array    {adjust(); return ARRAY;}
 <INITIAL>if       {adjust(); return IF;}
 <INITIAL>then     {adjust(); return THEN;}
-<INITIAL>type     {adjust(); return TYPE;}
+<INITIAL>else     {adjust(); return ELSE;}
 <INITIAL>while    {adjust(); return WHILE;}
 <INITIAL>for      {adjust(); return FOR;}
 <INITIAL>to       {adjust(); return TO;}
@@ -47,9 +39,7 @@ void adjust(void);
 <INITIAL>nil      {adjust(); return NIL;}
 <INITIAL>function {adjust(); return FUNCTION;}
 <INITIAL>var      {adjust(); return VAR;}
-<INITIAL>else     {adjust(); return ELSE;}
-
-<INITIAL>[a-zA-Z][a-zA-Z0-9_]*  {adjust(); yylval.sval = yytext; return ID;}
+<INITIAL>type     {adjust(); return TYPE;}
 
 <INITIAL>","    {adjust(); return COMMA;}
 <INITIAL>":"    {adjust(); return COLON;}
@@ -61,10 +51,10 @@ void adjust(void);
 <INITIAL>"{"    {adjust(); return LBRACE;}
 <INITIAL>"}"    {adjust(); return RBRACE;}
 <INITIAL>"."    {adjust(); return DOT;}
+<INITIAL>"*"    {adjust(); return TIMES;}
+<INITIAL>"/"    {adjust(); return DIVIDE;}
 <INITIAL>"+"    {adjust(); return PLUS;}
 <INITIAL>"-"    {adjust(); return MINUS;}
-<INITIAL>"*"    {adjust(); return TIMES;;}
-<INITIAL>"/"    {adjust(); return DIVIDE;}
 <INITIAL>"="    {adjust(); return EQ;}
 <INITIAL>"<>"   {adjust(); return NEQ;}
 <INITIAL>"<"    {adjust(); return LT;}
@@ -75,22 +65,59 @@ void adjust(void);
 <INITIAL>"|"    {adjust(); return OR;}
 <INITIAL>":="   {adjust(); return ASSIGN;}
 
-<INITIAL>[0-9]+       {adjust(); yylval.ival = atoi(yytext); return INT;}
+<INITIAL>\"               {adjust(); BEGIN(STRING_S); string_buf[0]= '\0'; strcat(string_buf,"\"");}
+<STRING_ML>[ \t]					{adjust(); continue;}
+<STRING_ML>"\n"						{adjust(); EM_newline(); continue;}
+<STRING_ML>\\							{adjust(); BEGIN(STRING_S);}
+<STRING_ML>.							{adjust(); EM_error(EM_tokPos,"invalid character in multiline string"); yyterminate();}
 
-  /*strings */
-<INITIAL>\"           {adjust(); BEGIN(STR); string_buf_ptr = string_buf;}
-<STR>\"               {adjust(); yylval.sval = String(string_buf); BEGIN(INITIAL); return STRING;}
-<STR>\n               {adjust(); EM_error(EM_tokPos,"UNCLOSED STRING"); }
-<STR><<EOF>>          {adjust(); EM_error(EM_tokPos,"UNCLOSED STRING"); }
-<STR>\\n              {*string_buf_ptr++ = '\n';}
-<STR>\\t              {*string_buf_ptr++ = '\t';}
-<STR>\\\              {*string_buf_ptr++ = '"'; }
-<STR>\\\\             {*string_buf_ptr++ = '\\';}
-<STR>\\[0-9]{3}       {int i = atoi(&yytext[1]); *string_buf_ptr++ = (char)i;}
-<STR>\\[\n\t ]+\\     {}
-<STR>\\(.|\n)	        {adjust(); EM_error(EM_tokPos, "ILLEGAL TOKEN");}
+<STRING_S>"\""							{adjust(); BEGIN(INITIAL); strcat(string_buf,"\""); yylval.sval=String(string_buf); return STRING;}
+<STRING_S><<EOF>>						{EM_newline(); BEGIN(INITIAL);  EM_error(EM_tokPos,"unclosed multiline string"); yyterminate();}
+<STRING_S>"\\n"							{adjust(); strcat(string_buf,"\n"); continue;}
+<STRING_S>"\\t"							{adjust(); strcat(string_buf,"\t"); continue;}
+<STRING_S>"\\\\"						{adjust(); strcat(string_buf,"\\"); continue;}
+<STRING_S>"\\\""						{adjust(); strcat(string_buf,"\""); continue;}
+<STRING_S>\\^[a-z]						{adjust(); 
+											if (strchr("abcdefghijklmnopqrstuvwxyz", yytext[2])) {
+												char p[2];
+												p[0] = (yytext[2] - 'a' + 1);
+												p[1] = '\0';
 
-<INITIAL>.	          {adjust(); EM_error(EM_tokPos,"ILLEGAL TOKEN");}
+												strcat(string_buf, p);
+												continue;
+											} else {
+												EM_error(EM_tokPos, "illegal escape sequence");
+												yyterminate();
+											}
+										}
+<STRING_S>\\{asc_range}					{adjust();  char p[2]; p[0] = (char)atoi(&yytext[1]); p[1] = '\0'; strcat(string_buf, p); continue;}
+<STRING_S>\\[ \t]+						{adjust();  BEGIN(STRING_ML);}
+<STRING_S>\\\n							{adjust();  EM_newline(); BEGIN(STRING_ML);}
+<STRING_S>\\.							{adjust();  EM_error(EM_tokPos,"invalid character or ASC code"); yyterminate();}
+<STRING_S>.								{adjust();  strcat(string_buf,yytext); continue;}
+
+<INITIAL>[a-zA-Z][a-zA-Z0-9_]*|_main				{adjust(); yylval.sval = Id(yytext); return ID;}
+
+<INITIAL>[0-9]+									{adjust(); long int tmp = strtol(yytext, NULL, 10);
+											if(tmp > INT_MAX || tmp == LONG_MAX) {
+												EM_error(EM_tokPos, "Integer out of range");
+												yyterminate();
+											}
+											yylval.ival = tmp;
+											return INT;}
+
+<INITIAL>\n       {adjust(); EM_newline(); continue;}
+                      
+<INITIAL>(" "|"\a"|"\b"|"\f"|"\r"|"\t"|"\v")+	{adjust(); continue;}
+
+
+<INITIAL>"/*"         {adjust(); line_num++; BEGIN(COMMENT);}
+<COMMENT><<EOF>>			{adjust(); EM_error(EM_tokPos, "unclose comment"); yyterminate();}
+<COMMENT>"*/"					{adjust(); line_num--; if(line_num == 0) BEGIN(INITIAL);}
+<COMMENT>.						{adjust(); continue;}
+
+<INITIAL>.	          {adjust(); EM_error(EM_tokPos, "BAD_TOKEN"); yyterminate();}
+
 %%
 
 int yywrap(void) {
