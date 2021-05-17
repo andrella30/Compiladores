@@ -41,7 +41,6 @@ struct A_exp_
 	       A_whileExp, A_forExp, A_breakExp, A_letExp, A_arrayExp} kind;
        A_pos pos;
        union {A_var var;
-	      /* nil; - needs only the pos */
 	      int intt;
 	      string stringg;
 	      struct {S_symbol func; A_expList args;} call;
@@ -49,10 +48,9 @@ struct A_exp_
 	      struct {S_symbol typ; A_efieldList fields;} record;
 	      A_expList seq;
 	      struct {A_var var; A_exp exp;} assign;
-	      struct {A_exp test, then, elsee;} iff; /* elsee is optional */
+	      struct {A_exp test, then, elsee;} iff; 
 	      struct {A_exp test, body;} whilee;
 	      struct {S_symbol var; A_exp lo,hi,body; bool escape;} forr;
-	      /* breakk; - need only the pos */
 	      struct {A_decList decs; A_exp body;} let;
 	      struct {S_symbol typ; A_exp size, init;} array;
 	    } u;
@@ -62,7 +60,6 @@ struct A_dec_
     {enum {A_functionDec, A_varDec, A_typeDec} kind;
      A_pos pos;
      union {A_fundecList function;
-	    /* escape may change after the initial declaration */
 	    struct {S_symbol var; S_symbol typ; A_exp init; bool escape;} var;
 	    A_nametyList type;
 	  } u;
@@ -76,7 +73,6 @@ struct A_ty_ {enum {A_nameTy, A_recordTy, A_arrayTy} kind;
 		   } u;
 	    };
 
-/* Linked lists and nodes of lists */
 
 struct A_field_ {S_symbol name, typ; A_pos pos; bool escape;};
 struct A_fieldList_ {A_field head; A_fieldList tail;};
@@ -93,7 +89,6 @@ struct A_efield_ {S_symbol name; A_exp exp;};
 struct A_efieldList_ {A_efield head; A_efieldList tail;};
 
 
-/* Function Prototypes */
 A_var A_SimpleVar(A_pos pos, S_symbol sym);
 A_var A_FieldVar(A_pos pos, A_var var, S_symbol sym);
 A_var A_SubscriptVar(A_pos pos, A_var var, A_exp exp);

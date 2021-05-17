@@ -7,7 +7,7 @@ extern int yyparse(void);
 
 static void parse(string fname) {
     EM_reset(fname);
-    if (yyparse() == 0) /* parsing worked */
+    if (yyparse() == 0) 
         fprintf(stderr,"Parsing successful!\n");
     else 
         fprintf(stderr,"Parsing failed\n");

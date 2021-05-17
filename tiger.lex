@@ -41,6 +41,7 @@ asc_range ([01][0-9]{2}|2[0-4][0-9]|25[0-5])
 <INITIAL>var      {adjust(); return VAR;}
 <INITIAL>type     {adjust(); return TYPE;}
 
+
 <INITIAL>","    {adjust(); return COMMA;}
 <INITIAL>":"    {adjust(); return COLON;}
 <INITIAL>";"    {adjust(); return SEMICOLON;}
@@ -111,12 +112,12 @@ asc_range ([01][0-9]{2}|2[0-4][0-9]|25[0-5])
 <INITIAL>(" "|"\a"|"\b"|"\f"|"\r"|"\t"|"\v")+	{adjust(); continue;}
 
 
-<INITIAL>"/*"         {adjust(); line_num++; BEGIN(COMMENT);}
-<COMMENT><<EOF>>			{adjust(); EM_error(EM_tokPos, "unclose comment"); yyterminate();}
-<COMMENT>"*/"					{adjust(); line_num--; if(line_num == 0) BEGIN(INITIAL);}
-<COMMENT>.						{adjust(); continue;}
+<INITIAL>"/*"         	{adjust(); line_num++; BEGIN(COMMENT);}
+<COMMENT><<EOF>>		{adjust(); EM_error(EM_tokPos, "unclose comment"); yyterminate();}
+<COMMENT>"*/"			{adjust(); line_num--; if(line_num == 0) BEGIN(INITIAL);}
+<COMMENT>.				{adjust(); continue;}
 
-<INITIAL>.	          {adjust(); EM_error(EM_tokPos, "BAD_TOKEN"); yyterminate();}
+<INITIAL>.	         	{adjust(); EM_error(EM_tokPos, "BAD_TOKEN"); yyterminate();}
 
 %%
 

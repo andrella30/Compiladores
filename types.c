@@ -59,12 +59,10 @@ Ty_fieldList Ty_FieldList(Ty_field head, Ty_fieldList tail)
  return p;
 }
 
-/* printing functions - used for debugging */
 static char str_ty[][12] = {
    "ty_record", "ty_nil", "ty_int", "ty_string", 
    "ty_array", "ty_name", "ty_void"};
 
-/* This will infinite loop on mutually recursive types */
 void Ty_print(Ty_ty t)
 {
   if (t == NULL) printf("null");

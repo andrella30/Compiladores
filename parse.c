@@ -10,7 +10,7 @@ extern A_exp absyn_root;
 
 A_exp parse(string fname) 
 {EM_reset(fname);
- if (yyparse() == 0) /* parsing worked */
+ if (yyparse() == 0) 
    return absyn_root;
  else return NULL;
 }

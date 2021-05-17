@@ -49,97 +49,97 @@ extern int yydebug;
 # define YYTOKENTYPE
   enum yytokentype
   {
-    COMMA = 258,
-    COLON = 259,
-    SEMICOLON = 260,
-    LPAREN = 261,
-    RPAREN = 262,
-    LBRACK = 263,
-    RBRACK = 264,
-    LBRACE = 265,
-    RBRACE = 266,
-    DOT = 267,
-    EQ = 268,
-    PLUS = 269,
-    MINUS = 270,
-    TIMES = 271,
-    DIVIDE = 272,
-    NEQ = 273,
-    LT = 274,
-    LE = 275,
-    GT = 276,
-    GE = 277,
-    AND = 278,
-    OR = 279,
-    ASSIGN = 280,
-    ARRAY = 281,
-    BREAK = 282,
-    DO = 283,
-    FOR = 284,
-    TO = 285,
-    WHILE = 286,
-    IF = 287,
-    THEN = 288,
-    ELSE = 289,
-    LET = 290,
-    IN = 291,
-    END = 292,
-    OF = 293,
-    NIL = 294,
-    FUNCTION = 295,
-    VAR = 296,
-    TYPE = 297,
-    STRING = 298,
-    ID = 299,
-    INT = 300,
+    STRING = 258,
+    ID = 259,
+    INT = 260,
+    COMMA = 261,
+    COLON = 262,
+    SEMICOLON = 263,
+    LPAREN = 264,
+    RPAREN = 265,
+    LBRACK = 266,
+    RBRACK = 267,
+    LBRACE = 268,
+    RBRACE = 269,
+    DOT = 270,
+    EQ = 271,
+    PLUS = 272,
+    MINUS = 273,
+    TIMES = 274,
+    DIVIDE = 275,
+    NEQ = 276,
+    LT = 277,
+    LE = 278,
+    GT = 279,
+    GE = 280,
+    AND = 281,
+    OR = 282,
+    ASSIGN = 283,
+    ARRAY = 284,
+    BREAK = 285,
+    DO = 286,
+    FOR = 287,
+    TO = 288,
+    WHILE = 289,
+    IF = 290,
+    THEN = 291,
+    ELSE = 292,
+    LET = 293,
+    IN = 294,
+    END = 295,
+    OF = 296,
+    NIL = 297,
+    FUNCTION = 298,
+    VAR = 299,
+    TYPE = 300,
     LOW = 301,
     UMINUS = 302
   };
 #endif
 /* Tokens.  */
-#define COMMA 258
-#define COLON 259
-#define SEMICOLON 260
-#define LPAREN 261
-#define RPAREN 262
-#define LBRACK 263
-#define RBRACK 264
-#define LBRACE 265
-#define RBRACE 266
-#define DOT 267
-#define EQ 268
-#define PLUS 269
-#define MINUS 270
-#define TIMES 271
-#define DIVIDE 272
-#define NEQ 273
-#define LT 274
-#define LE 275
-#define GT 276
-#define GE 277
-#define AND 278
-#define OR 279
-#define ASSIGN 280
-#define ARRAY 281
-#define BREAK 282
-#define DO 283
-#define FOR 284
-#define TO 285
-#define WHILE 286
-#define IF 287
-#define THEN 288
-#define ELSE 289
-#define LET 290
-#define IN 291
-#define END 292
-#define OF 293
-#define NIL 294
-#define FUNCTION 295
-#define VAR 296
-#define TYPE 297
-#define STRING 298
-#define ID 299
-#define INT 300
+#define STRING 258
+#define ID 259
+#define INT 260
+#define COMMA 261
+#define COLON 262
+#define SEMICOLON 263
+#define LPAREN 264
+#define RPAREN 265
+#define LBRACK 266
+#define RBRACK 267
+#define LBRACE 268
+#define RBRACE 269
+#define DOT 270
+#define EQ 271
+#define PLUS 272
+#define MINUS 273
+#define TIMES 274
+#define DIVIDE 275
+#define NEQ 276
+#define LT 277
+#define LE 278
+#define GT 279
+#define GE 280
+#define AND 281
+#define OR 282
+#define ASSIGN 283
+#define ARRAY 284
+#define BREAK 285
+#define DO 286
+#define FOR 287
+#define TO 288
+#define WHILE 289
+#define IF 290
+#define THEN 291
+#define ELSE 292
+#define LET 293
+#define IN 294
+#define END 295
+#define OF 296
+#define NIL 297
+#define FUNCTION 298
+#define VAR 299
+#define TYPE 300
 #define LOW 301
 #define UMINUS 302
 
@@ -149,24 +149,24 @@ union YYSTYPE
 {
 #line 20 "tiger.y"
 
-    string sval;
+    int pos;
     int ival;
-    int pos; 
+    string sval;
+	S_symbol sym;
     A_var var;
     A_exp exp;
     A_dec dec;
     A_ty ty;
-    A_namety namety;
-    A_nametyList nametylist;
     A_decList declist;
     A_expList explist;
     A_field field;
     A_fieldList fieldlist;
     A_fundec fundec;
     A_fundecList fundeclist;
+    A_namety namety;
+    A_nametyList nametylist;
     A_efield efield;
     A_efieldList efieldlist;
-    S_symbol sym;
 
 #line 172 "y.tab.h"
 

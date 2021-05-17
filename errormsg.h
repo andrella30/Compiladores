@@ -1,5 +1,6 @@
-extern bool EM_anyErrors;
+extern bool anyErrors;
 extern int EM_tokPos;
+
 
 void EM_newline(void);
 void EM_error(int, string,...);

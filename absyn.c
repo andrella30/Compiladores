@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "util.h"
-#include "symbol.h" /* symbol table data structures */
-#include "absyn.h"  /* abstract syntax data structures */
+#include "symbol.h" 
+#include "absyn.h" 
 
 A_var A_SimpleVar(A_pos pos, S_symbol sym)
 {A_var p = checked_malloc(sizeof(*p));

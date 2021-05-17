@@ -1,10 +1,9 @@
 #include <stdio.h>
 #include "util.h"
-#include "symbol.h" /* symbol table data structures */
-#include "absyn.h"  /* abstract syntax data structures */
-#include "prabsyn.h" /* function prototype */
+#include "symbol.h" 
+#include "absyn.h" 
+#include "prabsyn.h" 
 
-/* local function prototypes */
 static void pr_var(FILE *out, A_var v, int d);
 static void pr_dec(FILE *out, A_dec v, int d);
 static void pr_ty(FILE *out, A_ty v, int d);
@@ -24,7 +23,6 @@ static void indent(FILE *out, int d) {
  for (i = 0; i <= d; i++) fprintf(out, " ");
 }
 
-/* Print A_var types. Indent d spaces. */
 static void pr_var(FILE *out, A_var v, int d) {
  indent(out, d);
  switch (v->kind) {
@@ -54,7 +52,6 @@ static void pr_oper(FILE *out, A_oper d) {
   fprintf(out, "%s", str_oper[d]);
 }
 
-/* Print A_var types. Indent d spaces. */
 void pr_exp(FILE *out, A_exp v, int d) {
  indent(out, d);
  switch (v->kind) {
@@ -98,7 +95,7 @@ void pr_exp(FILE *out, A_exp v, int d) {
    fprintf(out, "iffExp(\n");
    pr_exp(out, v->u.iff.test, d+1); fprintf(out, ",\n");
    pr_exp(out, v->u.iff.then, d+1);
-   if (v->u.iff.elsee) { /* else is optional */
+   if (v->u.iff.elsee) { 
       fprintf(out, ",\n");
       pr_exp(out, v->u.iff.elsee, d+1);
    }

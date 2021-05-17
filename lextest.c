@@ -5,7 +5,7 @@
 #include "tokens.h"
   
 
-int yylex(void); /* prototype for the lexing function */
+int yylex(void); 
 
 
 
